@@ -1,0 +1,89 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class URI1025 {
+
+	public static void main(String[] args) throws IOException 
+	{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		String entrada = br.readLine();
+		int n, q, cases = 1, t, index;
+		
+		while(!entrada.equals("0 0"))
+		{
+			bw.write("CASE# " + cases + ":\n");
+			
+			n = Integer.parseInt( entrada.split(" ")[0] );
+			q = Integer.parseInt( entrada.split(" ")[1] );
+			
+			int[] array = new int[n];
+			
+			for(int i = 0; i < n; i++){
+				
+				array[i] = Integer.parseInt(br.readLine());
+			
+			array = counting_sort(array.clone());
+			}
+			
+			System.out.println("Ingrese Valor a Buscar \n");
+			
+			for(int i = 0; i < q; i++)
+			{
+				t = Integer.parseInt(br.readLine());
+				index = binary_search(array, t);
+				
+				if(index != -1)
+					bw.write(t + " found at " + (index + 1) + "\n");
+				else
+					bw.write(t + " not found\n");
+			}
+			
+			bw.flush();
+			cases += 1;
+		}
+	}
+	public static int[] counting_sort(int[] unsorted)
+	{
+		int[] sorted = new int[unsorted.length];
+		int[] aux = new int[10001];
+		int index = 0;
+		
+		for(int i = 0; i < unsorted.length; i++)
+			aux[ unsorted[i] ] += 1;
+		
+		for(int i = 0; i < aux.length; i++)
+			if(aux[i] != 0)
+				for(int j = 0; j < aux[i]; j++)
+				{
+					sorted[index] = i;
+					index += 1;
+				}	
+		return sorted;
+	}
+	public static int binary_search(int[] array, int value)
+	{
+		int Centro,Primero,Ultimo,ValorCentro;
+		Primero=0;
+		Ultimo=array.length-1;
+		
+		while(Primero<=Ultimo){
+			
+			Centro=(Primero+Ultimo)/2;
+			ValorCentro = array[Centro];
+			
+			if(value == ValorCentro) {
+				return Centro;
+			}else if(value<ValorCentro){
+				Ultimo=Centro-1;
+			}else {
+				Primero = Centro+1;
+			}
+		}
+		return -1;	
+	}
+}
