@@ -1,0 +1,55 @@
+package URI;
+
+import java.io.*;
+
+public class URI1211 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		try {
+			
+		
+		
+			String input = br.readLine();
+			String phonenumber;
+			char[] phone_number;
+			int cases, counter;
+			while(!input.equals(""))
+			{
+				cases = Integer.parseInt(input);
+				counter = 0;
+				phonenumber = br.readLine();
+				phone_number = new char[phonenumber.length()];
+				for (int i = 0; i < phonenumber.length(); i++) {
+					phone_number[i] = phonenumber.charAt(i);
+				}
+				
+				for (int i = 1; i < cases; i++) {
+					phonenumber = br.readLine();
+					
+					int j = 0;
+						while(true)
+						{
+							if(phone_number[j] == phonenumber.charAt(j))
+							{
+								counter +=1;
+							}else 
+								break;
+							
+							j++;
+						}
+				}
+				bw.write(counter + "\n");
+				bw.flush();
+				input = br.readLine();
+			}
+		}
+		catch(Exception es) {}
+	}
+	
+	
+
+}
